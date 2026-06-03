@@ -1,0 +1,9 @@
+streamlit==1.36.0
+pandas
+scikit-learn
+nltk
+plotly
+wandb
+openpyxl
+tensorflow
+tensorflow-datasets
