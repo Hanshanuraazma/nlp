@@ -1,7 +1,8 @@
-streamlit==1.36.0
+streamlit
 pandas
 scikit-learn
 nltk
 plotly
 wandb
 openpyxl
+
