@@ -218,7 +218,12 @@ with tab2:
         if st.button("🚀 Mulai Latih Model", type='primary', use_container_width=True):
             with st.spinner("Pembersihan teks sedang berjalan dan model sedang dilatih... Mohon tunggu sebentar."):
                 # W&B Integration
-                wandb_api_key = os.environ.get("WANDB_API_KEY") or (st.secrets.get("WANDB_API_KEY") if hasattr(st, 'secrets') else None)
+                wandb_api_key = os.environ.get("WANDB_API_KEY")
+                if not wandb_api_key:
+                    try:
+                        wandb_api_key = st.secrets.get("WANDB_API_KEY")
+                    except Exception:
+                        wandb_api_key = None
                 use_wandb = bool(wandb_api_key)
                 
                 if use_wandb:
