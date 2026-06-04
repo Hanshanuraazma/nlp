@@ -1,27 +1,18 @@
 import pandas as pd
-import tensorflow_datasets as tfds
 import streamlit as st
 
 @st.cache_data
 def load_imdb_sample():
     """
-    Loads a sample of 10,000 IMDB reviews using tensorflow_datasets.
+    Loads a sample of 10,000 IMDB reviews from a public raw URL on GitHub.
     """
     try:
-        # Load the imdb_reviews dataset
-        ds = tfds.load('imdb_reviews', split='train[:10000]', as_supervised=True)
-        
-        # Convert to a pandas DataFrame
-        texts = []
-        labels = []
-        for text, label in tfds.as_numpy(ds):
-            texts.append(text.decode('utf-8'))
-            labels.append('positive' if label == 1 else 'negative')
-            
-        df = pd.DataFrame({'review': texts, 'sentiment': labels})
+        url = "https://raw.githubusercontent.com/Ankit152/IMDB-sentiment-analysis/master/IMDB-Dataset.csv"
+        # Download and read only the first 10,000 rows
+        df = pd.read_csv(url, nrows=10000)
         return df
     except Exception as e:
-        st.error(f"Error loading IMDB dataset from TFDS: {e}")
+        st.error(f"Error loading IMDB dataset from GitHub: {e}")
         return None
 
 def process_upload(uploaded_file) -> pd.DataFrame:
@@ -35,3 +26,4 @@ def process_upload(uploaded_file) -> pd.DataFrame:
     else:
         raise ValueError("Unsupported file format. Please upload CSV or Excel.")
     return df
+

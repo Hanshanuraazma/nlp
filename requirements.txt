@@ -5,5 +5,3 @@ nltk
 plotly
 wandb
 openpyxl
-tensorflow
-tensorflow-datasets
